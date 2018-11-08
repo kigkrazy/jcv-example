@@ -5,6 +5,7 @@ import android.os.RemoteException;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.ResourceUtils;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.reizx.jcv.IAndromedaInf;
 import com.reizx.jcv.R;
@@ -61,13 +62,15 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @OnClick(R.id.btn_app_image_recognition)
     public void imageRecognition() {
-        JcvLog.d("xxxx");
-        JcvLog.d("xxxx");
-        JcvLog.d("xxxx");
-        JcvLog.d("xxxx");
-        String source = "/data/local/tmp/bg2.png";
-        String find = "/data/local/tmp/find_2.png";
-        ImageRecognitionUtil.MatchResult result  = ImageRecognitionUtil.match(source, find);
+
+        String source = "/sdcard/bg2.png";
+        String target = "/sdcard/find_2.png";
+        String target2 = "/sdcard/find_4.png";
+
+        ResourceUtils.copyFileFromAssets("bg2.png", source);
+        ResourceUtils.copyFileFromAssets("find_2.png", target);
+        ResourceUtils.copyFileFromAssets("find_4.png", target2);
+        ImageRecognitionUtil.MatchResult result  = ImageRecognitionUtil.match(source, target);
         JcvLog.dd("the match : %b ", result.isMatch());
     }
 
