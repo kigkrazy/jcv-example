@@ -25,6 +25,7 @@ import static org.bytedeco.javacpp.opencv_imgproc.matchTemplate;
  */
 public class ImageRecognitionUtil {
     private static String SCREENSHOT_CATCH = "/sdcard/.reizx_screenshot_catch";
+
     /**
      * 查找当前屏幕是否包含目标图片
      *
@@ -38,11 +39,18 @@ public class ImageRecognitionUtil {
         String cmds = String.format("mkdir -p %s \n", SCREENSHOT_CATCH);
         cmds = cmds + String.format("screencap -p %s\n", sourcImage);
         ShellUtils.execCmd(cmds, true);
-        matchResult = match(sourcImage,target);
+        matchResult = match(sourcImage, target);
         FileUtils.deleteFile(sourcImage);//删除文件
         return matchResult;
     }
 
+    /**
+     * 清除截屏缓存，避免强制退出，或者异常导致缓存文件夹无限增大。一般在一个动作流程开始前，或者动作结束后调用。
+     */
+    public void clearCatch() {
+        String cmds = String.format("rm -rf %s/* \n", SCREENSHOT_CATCH);
+        ShellUtils.execCmd(cmds, true);
+    }
 
     /**
      * 匹配图片
