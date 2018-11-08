@@ -5,6 +5,7 @@
     <string name="app_stop_service">停止服务</string>
     <string name="app_get_current_ip">获取IP</string>
     <string name="app_get_andromeda_call">Andromeda请求</string>
+    <string name="app_get_image_recognition">图像识别</string>
     <string name="app_show_ip_title">当前IP：</string>
     <string name="app_show_ip_description">null</string>
 </resources>
