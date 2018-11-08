@@ -5,17 +5,19 @@ apply plugin: 'org.qiyi.svg.plugin'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.reizx.asf"
+        applicationId "com.reizx.jcv"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 2
         versionName "1.8.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        multiDexEnabled true
+
         // 如果没有下面的NDK相关的配置，就算armeabi下有相关的so
         // System.loadLibrary("jniutil");也会提示找不到so
         //
-        // java.lang.UnsatisfiedLinkError: dalvik.system.PathClassLoader[DexPathList[[zip file "/data/app/com.reizx.asf-2/base.apk"],nativeLibraryDirectories=[/data/app/com.reizx.asf-2/lib/arm, /vendor/lib, /system/lib]]] couldn't find "libjniutil.so"
+        // java.lang.UnsatisfiedLinkError: dalvik.system.PathClassLoader[DexPathList[[zip file "/data/app/com.reizx.jcv-2/base.apk"],nativeLibraryDirectories=[/data/app/com.reizx.jcv-2/lib/arm, /vendor/lib, /system/lib]]] couldn't find "libjniutil.so"
         //
         ndk {
             // 加了其他的文件夹（比如 armeabi-v7a，x86等）可能会出问题
@@ -60,4 +62,14 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
     //Andromeda
     api "org.qiyi.video.svg:core:1.1.8"
+
+    //多DEX处理
+    api 'com.android.support:multidex:1.0.3'
+
+    //JAVACV ---- 图像识别相关
+    api group: 'org.bytedeco', name: 'javacv', version: '1.4.3'
+    api group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '3.4.3-1.4.3', classifier: 'android-arm'
+    api group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '3.4.3-1.4.3', classifier: 'android-x86'
+    api group: 'org.bytedeco.javacpp-presets', name: 'ffmpeg', version: '4.0.2-1.4.3', classifier: 'android-arm'
+    api group: 'org.bytedeco.javacpp-presets', name: 'ffmpeg', version: '4.0.2-1.4.3', classifier: 'android-x86'
 }
