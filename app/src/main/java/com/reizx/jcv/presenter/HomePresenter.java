@@ -13,7 +13,7 @@ import com.reizx.jcv.bean.event.IpStatusEvent;
 import com.reizx.jcv.model.DataManager;
 import com.reizx.jcv.presenter.common.BasePresenterImpl;
 import com.reizx.jcv.service.ForegroundService;
-import com.reizx.jcv.util.AsfLog;
+import com.reizx.jcv.util.JcvLog;
 import com.reizx.jcv.util.RxUtil;
 
 import javax.inject.Inject;
@@ -59,7 +59,7 @@ public class HomePresenter extends BasePresenterImpl<HomeConstract.View> impleme
     @Override
     public void showCurrentIp() {
         //view.setCurrentIp();
-        AsfLog.d("showCurrentIp...");
+        JcvLog.d("showCurrentIp...");
         //view.showTip(QMUITipDialog.Builder.ICON_TYPE_LOADING, "正在请求");
         RxBus.getInstance().post(new TipEvent(view.getClass().getName(), TipEvent.TipAction.SHOW, QMUITipDialog.Builder.ICON_TYPE_LOADING, "正在请求"));
         dm.getIpApi().getCurrentIp()
@@ -80,7 +80,7 @@ public class HomePresenter extends BasePresenterImpl<HomeConstract.View> impleme
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        AsfLog.d("get something error : " + throwable.toString());
+                        JcvLog.d("get something error : " + throwable.toString());
                     }
                 });
 

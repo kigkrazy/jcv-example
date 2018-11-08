@@ -8,8 +8,10 @@ import com.blankj.utilcode.util.AppUtils;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.reizx.jcv.IAndromedaInf;
 import com.reizx.jcv.R;
+import com.reizx.jcv.component.cv.ImageRecognitionUtil;
 import com.reizx.jcv.contract.HomeConstract;
 import com.reizx.jcv.presenter.HomePresenter;
+import com.reizx.jcv.util.JcvLog;
 import com.reizx.jcv.view.common.BaseFragment;
 
 import org.qiyi.video.svg.Andromeda;
@@ -56,6 +58,19 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             ex.printStackTrace();
         }
     }
+
+    @OnClick(R.id.btn_app_image_recognition)
+    public void imageRecognition() {
+        JcvLog.d("xxxx");
+        JcvLog.d("xxxx");
+        JcvLog.d("xxxx");
+        JcvLog.d("xxxx");
+        String source = "/data/local/tmp/bg2.png";
+        String find = "/data/local/tmp/find_2.png";
+        ImageRecognitionUtil.MatchResult result  = ImageRecognitionUtil.match(source, find);
+        JcvLog.dd("the match : %b ", result.isMatch());
+    }
+
 
     @Override
     public int getFragmentLayoutID() {

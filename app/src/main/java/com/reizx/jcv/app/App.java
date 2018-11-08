@@ -1,6 +1,5 @@
 package com.reizx.jcv.app;
 
-import android.app.Application;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
@@ -11,7 +10,7 @@ import com.reizx.jcv.di.component.DaggerAppComponent;
 import com.reizx.jcv.di.module.AppModule;
 import com.reizx.jcv.di.module.HttpModule;
 
-import static com.reizx.jcv.util.AsfLog.initLog;
+import static com.reizx.jcv.util.JcvLog.initLog;
 import org.qiyi.video.svg.Andromeda;
 
 /**

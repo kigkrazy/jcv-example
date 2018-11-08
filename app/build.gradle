@@ -19,10 +19,10 @@ android {
         //
         // java.lang.UnsatisfiedLinkError: dalvik.system.PathClassLoader[DexPathList[[zip file "/data/app/com.reizx.jcv-2/base.apk"],nativeLibraryDirectories=[/data/app/com.reizx.jcv-2/lib/arm, /vendor/lib, /system/lib]]] couldn't find "libjniutil.so"
         //
-        ndk {
-            // 加了其他的文件夹（比如 armeabi-v7a，x86等）可能会出问题
-            abiFilters "armeabi"
-        }
+//        ndk {
+//            // 加了其他的文件夹（比如 armeabi-v7a，x86等）可能会出问题
+//            abiFilters "armeabi"
+//        }
     }
     buildTypes {
         release {
@@ -31,6 +31,10 @@ android {
             apply from: project.rootProject.rootDir.absolutePath + File.separator + "signing_config.gradle"
             //设置签名
         }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
 }
 

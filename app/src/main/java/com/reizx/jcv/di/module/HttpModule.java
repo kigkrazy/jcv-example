@@ -2,7 +2,7 @@ package com.reizx.jcv.di.module;
 
 import com.blankj.utilcode.util.NetworkUtils;
 import com.reizx.jcv.constant.Constants;
-import com.reizx.jcv.util.AsfLog;
+import com.reizx.jcv.util.JcvLog;
 
 import java.io.File;
 import java.io.IOException;
@@ -97,7 +97,7 @@ public class HttpModule {
         @Override
         public Response intercept(Interceptor.Chain chain) throws IOException {
             Request request = chain.request();
-            AsfLog.d(String.format("Sending request %s on %s%n%s",
+            JcvLog.d(String.format("Sending request %s on %s%n%s",
                     request.url(), chain.connection(), request.headers()));
             return chain.proceed(request);
         }

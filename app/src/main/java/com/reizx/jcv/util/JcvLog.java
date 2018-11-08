@@ -40,7 +40,7 @@ import java.util.TimeZone;
  *      //打印带临时标签的log
  *      RiumLog.t("tmp-tag").d("ffff");
  */
-public class AsfLog {
+public class JcvLog {
     private static Logger logger;
 
     static {
@@ -66,7 +66,7 @@ public class AsfLog {
         Printer androidPrinter = new AndroidPrinter();                                     // 通过 android.util.Log 打印日志的打印器
 
         if (!StringUtils.isEmpty(logDir)){
-            AsfLog.HistoryDateFileNameGenerator fileNameGenerator = new AsfLog.HistoryDateFileNameGenerator(3, logDir);
+            JcvLog.HistoryDateFileNameGenerator fileNameGenerator = new JcvLog.HistoryDateFileNameGenerator(3, logDir);
             Printer filePrinter = new FilePrinter                                               // 打印日志到文件的打印器
                     .Builder(logDir)                                                            // 指定保存日志文件的路径
                     .fileNameGenerator(fileNameGenerator)                                       // 指定日志文件名生成器，默认为 ChangelessFileNameGenerator("log")

@@ -4,7 +4,6 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +19,7 @@ import com.reizx.jcv.IAndromedaInf;
 import com.reizx.jcv.R;
 import com.reizx.jcv.constant.Constants;
 import com.reizx.jcv.service.common.BaseService;
-import com.reizx.jcv.util.AsfLog;
+import com.reizx.jcv.util.JcvLog;
 
 import org.qiyi.video.svg.Andromeda;
 
@@ -41,7 +40,7 @@ public class ForegroundService extends BaseService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        AsfLog.dt(TAG, "--------->onStartCommand: ");
+        JcvLog.dt(TAG, "--------->onStartCommand: ");
         //启动前台服务
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             setNotificationOver26(Constants.FORGROUND_SERVICE_CHANNEL_ID,
@@ -128,7 +127,7 @@ public class ForegroundService extends BaseService {
 
             @Override
             public void remoteCall() throws RemoteException {
-                AsfLog.d("remoteCall success...");
+                JcvLog.d("remoteCall success...");
             }
         });
     }
@@ -144,7 +143,7 @@ public class ForegroundService extends BaseService {
     public static class NotificationClickReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            AsfLog.dt(TAG, "NotificationClickReceiver --------->onReceive: stop service");
+            JcvLog.dt(TAG, "NotificationClickReceiver --------->onReceive: stop service");
             context.stopService(new Intent(context, ForegroundService.class));
         }
     }

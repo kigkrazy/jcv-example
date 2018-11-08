@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.reizx.jcv.util.AsfLog;
+import com.reizx.jcv.util.JcvLog;
 
 /**
  * 开机启动广播
@@ -12,6 +12,6 @@ import com.reizx.jcv.util.AsfLog;
 public class BootBroadcast extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        AsfLog.dt(BootBroadcast.class.toString(),"receive BootBroadcast");
+        JcvLog.dt(BootBroadcast.class.toString(),"receive BootBroadcast");
     }
 }
