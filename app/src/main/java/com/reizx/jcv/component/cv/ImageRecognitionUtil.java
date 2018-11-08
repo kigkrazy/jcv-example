@@ -1,5 +1,8 @@
 package com.reizx.jcv.component.cv;
 
+import com.blankj.utilcode.util.FileUtils;
+import com.blankj.utilcode.util.ShellUtils;
+
 import org.bytedeco.javacpp.DoublePointer;
 import org.bytedeco.javacpp.opencv_core;
 
@@ -21,11 +24,31 @@ import static org.bytedeco.javacpp.opencv_imgproc.matchTemplate;
  * 基于JavaCv完成
  */
 public class ImageRecognitionUtil {
+    private static String SCREENSHOT_CATCH = "/sdcard/.reizx_screenshot_catch";
+    /**
+     * 查找当前屏幕是否包含目标图片
+     *
+     * @param target
+     * @return
+     */
+    public static MatchResult findInScreen(String target) {
+        MatchResult matchResult = new MatchResult();
+        String sourcImage = String.format("%s/%d.png", SCREENSHOT_CATCH, System.currentTimeMillis());
+
+        String cmds = String.format("mkdir -p %s \n", SCREENSHOT_CATCH);
+        cmds = cmds + String.format("screencap -p %s\n", sourcImage);
+        ShellUtils.execCmd(cmds, true);
+        matchResult = match(sourcImage,target);
+        FileUtils.deleteFile(sourcImage);//删除文件
+        return matchResult;
+    }
+
+
     /**
      * 匹配图片
      *
      * @param source 原图
-     * @param target   在原图中查找的小图
+     * @param target 在原图中查找的小图
      * @return
      */
     public static MatchResult match(String source, String target) {
@@ -36,11 +59,12 @@ public class ImageRecognitionUtil {
      * 匹配图片
      *
      * @param source    原图
-     * @param target      在原图中查找的小图
+     * @param target    在原图中查找的小图
      * @param precision 范围为0-1, 一般为0.999，匹配度最高，越小匹配度越低。
      * @return
      */
     public static MatchResult match(String source, String target, double precision) {
+        MatchResult matchResult = new MatchResult();//结果
         //read in image default colors
         opencv_core.Mat sourceColor = imread(source);
         opencv_core.Mat sourceGrey = new opencv_core.Mat(sourceColor.size(), CV_8UC1);
@@ -58,16 +82,16 @@ public class ImageRecognitionUtil {
         opencv_core.Point max = new opencv_core.Point();
         minMaxLoc(result, minVal, maxVal, min, max, null);//寻找最佳匹配
         if (maxVal.get(0) >= precision) {
-            MatchResult matchResult = new MatchResult();
+            matchResult = new MatchResult();
             matchResult.setMatch(true);
             matchResult.setX(max.x());
             matchResult.setY(max.y());
             matchResult.setWidth(template.cols());
             matchResult.setHeight(template.rows());
             matchResult.setMiddleX(max.x() + (template.cols() / 2));
-            matchResult.setMiddleX(max.y() + (template.rows() / 2));
+            matchResult.setMiddleY(max.y() + (template.rows() / 2));
         }
-        return new MatchResult();
+        return matchResult;
     }
 
     @Data
